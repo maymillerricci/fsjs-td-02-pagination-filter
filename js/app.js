@@ -2,12 +2,17 @@ var studentList = $(".student-list");
 var studentListItems = $(".student-list li");
 var perPage = 10;
 
+addSearch();
 var studentCount = studentListItems.length;
 var pageCount = getPageCount(studentCount, perPage);
 if (pageCount > 1) {
   paginate(pageCount);
   goToPage(1);
 }
+
+$(".student-search button").on("click", function() {
+  var searchTerm = $(this).prev().val().toLowerCase();
+});
 
 $(".pagination a").on("click", function(e) {
   e.preventDefault();
@@ -16,6 +21,11 @@ $(".pagination a").on("click", function(e) {
   $(".pagination a").removeClass("active");
   $(this).addClass("active");
 });
+
+function addSearch() {
+  var searchBar = "<div class='student-search'><input placeholder='Search for students...'><button>Search</button></div>"
+  $(".page-header").append(searchBar);
+}
 
 function getPageCount(total, perPage) {
   return Math.ceil(total / perPage);
