@@ -13,6 +13,8 @@ $(".pagination a").on("click", function(e) {
   e.preventDefault();
   var pageNumber = $(this).text();
   goToPage(pageNumber);
+  $(".pagination a").removeClass("active");
+  $(this).addClass("active");
 });
 
 function getPageCount(total, perPage) {
@@ -20,10 +22,11 @@ function getPageCount(total, perPage) {
 }
 
 function paginate(pageCount) {
-  studentList.after("<div class='pagination'></div>");
+  studentList.after("<div class='pagination'><ul></ul></div>");
   for (var i = 1; i <= pageCount; i++) {
-    $(".pagination").append("<li><a href='#'>" + i + "</a></li>");
+    $(".pagination ul").append("<li><a href='#'>" + i + "</a></li>");
   }
+  $(".pagination a").first().addClass("active");
 }
 
 function goToPage(pageNumber) {

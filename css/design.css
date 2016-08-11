@@ -102,6 +102,7 @@ body{
  
   .pagination li{
     display: inline;
+    margin: 2px;
   }
 
     .pagination li a{
