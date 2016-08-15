@@ -2,7 +2,7 @@ var studentList = $(".student-list");
 var studentListItems = $(".student-list li");
 var perPage = 10;
 
-addSearch();
+addSearchBar();
 var studentCount = studentListItems.length;
 var pageCount = getPageCount(studentCount, perPage);
 if (pageCount > 1) {
@@ -12,6 +12,7 @@ if (pageCount > 1) {
 
 $(".student-search button").on("click", function() {
   var searchTerm = $(this).prev().val().toLowerCase();
+  search(searchTerm);
 });
 
 $(".pagination a").on("click", function(e) {
@@ -22,9 +23,18 @@ $(".pagination a").on("click", function(e) {
   $(this).addClass("active");
 });
 
-function addSearch() {
+function addSearchBar() {
   var searchBar = "<div class='student-search'><input placeholder='Search for students...'><button>Search</button></div>"
   $(".page-header").append(searchBar);
+}
+
+function search(searchTerm) {
+  studentListItems.hide();
+  $.each($(".student-details"), function() {
+    if ($(this).text().toLowerCase().match(searchTerm)) {
+      $(this).parent().show();
+    }
+  });
 }
 
 function getPageCount(total, perPage) {
