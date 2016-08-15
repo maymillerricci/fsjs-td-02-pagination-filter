@@ -16,8 +16,6 @@ $(document).on("click", ".pagination a", function(e) {
   e.preventDefault();
   var pageNumber = $(this).text();
   goToPage(pageNumber, studentListItems);
-  $(".pagination a").removeClass("active");
-  $(this).addClass("active");
 });
 
 function addSearchBar() {
@@ -46,7 +44,6 @@ function paginate(studentListItems) {
     for (var i = 1; i <= pageCount; i++) {
       $(".pagination ul").append("<li><a href='#'>" + i + "</a></li>");
     }
-    $(".pagination a").first().addClass("active");
     goToPage(1, studentListItems);
   }
 }
@@ -57,5 +54,13 @@ function goToPage(pageNumber, studentListItems) {
   var studentsToShow = studentListItems.slice(startIndex, endIndex);
   studentListItems.hide();
   studentsToShow.show();
+  highlightSelectedPage(pageNumber);
+}
+
+// remove css highlighting selected page number link from all links
+// and add it to currently selected link
+function highlightSelectedPage(pageNumber) {
+  $(".pagination a").removeClass("active");
+  $(".pagination a").eq(pageNumber - 1).addClass("active");
 }
  
