@@ -4,25 +4,30 @@ var perPage = 10;
 addSearchBar();
 paginate(studentListItems);
 
+// bind performing search and re-paginating based on visible results 
+// shown from search to search bar button clicks
 $(".student-search button").on("click", function() {
   $(".pagination").remove();
   var searchTerm = $(this).prev().val().toLowerCase();
   search(searchTerm);
-  studentListItems = $(".student-list li:visible")
+  studentListItems = $(".student-list li:visible");
   paginate(studentListItems);
 });
 
+// bind going to page number function to page number link clicks
 $(document).on("click", ".pagination a", function(e) {
   e.preventDefault();
   var pageNumber = $(this).text();
   goToPage(pageNumber, studentListItems);
 });
 
+// dynamically add the search bar
 function addSearchBar() {
-  var searchBar = "<div class='student-search'><input placeholder='Search for students...'><button>Search</button></div>"
+  var searchBar = "<div class='student-search'><input placeholder='Search for students...'><button>Search</button></div>";
   $(".page-header").append(searchBar);
 }
 
+// loop through students showing just the ones that match the input search term
 function search(searchTerm) {
   studentListItems.hide();
   $.each($(".student-details"), function() {
@@ -32,10 +37,7 @@ function search(searchTerm) {
   });
 }
 
-function getPageCount(total, perPage) {
-  return Math.ceil(total / perPage);
-}
-
+// add page number links for each page and start off going to page 1
 function paginate(studentListItems) {
   var studentCount = studentListItems.length;
   var pageCount = getPageCount(studentCount, perPage);
@@ -48,6 +50,12 @@ function paginate(studentListItems) {
   }
 }
 
+// round up total divided by how many you want to show per page to get number of pages
+function getPageCount(total, perPage) {
+  return Math.ceil(total / perPage);
+}
+
+// show just students on that page
 function goToPage(pageNumber, studentListItems) {
   var startIndex = perPage * (pageNumber - 1);
   var endIndex = perPage * pageNumber;
