@@ -75,7 +75,7 @@ function goToPage(pageNumber, studentListItems) {
   var endIndex = perPage * pageNumber;
   var studentsToShow = studentListItems.slice(startIndex, endIndex);
   studentListItems.hide();
-  studentsToShow.show();
+  studentsToShow.fadeIn(1000);
   highlightSelectedPage(pageNumber);
 }
 
