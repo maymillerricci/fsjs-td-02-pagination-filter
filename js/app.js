@@ -30,10 +30,15 @@ function addSearchBar() {
 // perform search for search term and re-paginate based on visible results from search
 function search() {
   $(".pagination").remove();
+  $(".no-results").remove();
   var searchTerm = $(".student-search input").val().toLowerCase();
   showSearchResults(searchTerm);
   studentListItems = $(".student-list li:visible");
-  paginate(studentListItems);
+  if (studentListItems.length > 0) {
+    paginate(studentListItems);
+  } else {
+    $(".student-list").append("<p class='no-results'>Your search returned no results.</p>");
+  }
 }
 
 // loop through students showing just the ones that match the input search term
