@@ -4,12 +4,12 @@ var perPage = 10;
 addSearchBar();
 paginate(studentListItems);
 
-// bind search process to search bar button clicks
+// bind search function to search bar button clicks
 $(".student-search button").on("click", function() {
   search();
 });
 
-// bind search process to typing in search bar
+// bind search function to typing in search bar
 $(".student-search input").on("keyup", function() {
   search();
 });
