@@ -4,14 +4,14 @@ var perPage = 10;
 addSearchBar();
 paginate(studentListItems);
 
-// bind performing search and re-paginating based on visible results 
-// shown from search to search bar button clicks
+// bind search process to search bar button clicks
 $(".student-search button").on("click", function() {
-  $(".pagination").remove();
-  var searchTerm = $(this).prev().val().toLowerCase();
-  search(searchTerm);
-  studentListItems = $(".student-list li:visible");
-  paginate(studentListItems);
+  search();
+});
+
+// bind search process to typing in search bar
+$(".student-search input").on("keyup", function() {
+  search();
 });
 
 // bind going to page number function to page number link clicks
@@ -27,8 +27,17 @@ function addSearchBar() {
   $(".page-header").append(searchBar);
 }
 
+// perform search for search term and re-paginate based on visible results from search
+function search() {
+  $(".pagination").remove();
+  var searchTerm = $(".student-search input").val().toLowerCase();
+  showSearchResults(searchTerm);
+  studentListItems = $(".student-list li:visible");
+  paginate(studentListItems);
+}
+
 // loop through students showing just the ones that match the input search term
-function search(searchTerm) {
+function showSearchResults(searchTerm) {
   studentListItems.hide();
   $.each($(".student-details"), function() {
     if ($(this).text().toLowerCase().match(searchTerm)) {
